@@ -23,7 +23,7 @@ create_makefile()
     touch Makefile
     echo "CC = g++" >> Makefile
     echo "RM = rm -f" >> Makefile
-    echo "CFLAGS = -Wall -Wextra -Werror -std=c++98" >> Makefile
+    echo "CPPFLAGS = -Wall -Wextra -Werror -std=c++98" >> Makefile
     echo "NAME =" $NAME >> Makefile
     echo "SRC = main.cpp" >> Makefile
     echo >> Makefile
