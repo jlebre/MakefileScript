@@ -78,11 +78,19 @@ check_includes()
         mv *.hpp ./includes
         echo "INC = -I includes">> Makefile
         echo >> Makefile
-        echo "CPPFLAGS = -Wall -Wextra -Werror $(INC) -std=c++98" >> Makefile
+        echo 'CPPFLAGS = -Wall -Wextra -Werror $(INC) -std=c++98' >> Makefile
         echo >> Makefile
     else
-        echo "CPPFLAGS = -Wall -Wextra -Werror -std=c++98" >> Makefile
-        echo >> Makefile
+        if [[ -d "includes" ]]
+        then
+            echo "INC = -I includes">> Makefile
+            echo >> Makefile
+            echo 'CPPFLAGS = -Wall -Wextra -Werror $(INC) -std=c++98' >> Makefile
+            echo >> Makefile
+        else
+            echo "CPPFLAGS = -Wall -Wextra -Werror -std=c++98" >> Makefile
+            echo >> Makefile
+        fi
     fi
 }
 
