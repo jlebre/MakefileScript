@@ -61,3 +61,9 @@ then
 else
     create_makefile
 fi
+
+##############
+# by: jlebre #                      
+#####################################
+# Github: https://github.com/jlebre #
+#####################################
