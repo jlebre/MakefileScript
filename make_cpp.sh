@@ -64,6 +64,7 @@ check_srcs()
     echo 'OBJS = $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.cpp=.o))' >> Makefile
     echo >> Makefile
     echo 'OBJS_DIR = objs' >> Makefile
+    echo >> Makefile
 }
 
 check_includes()
@@ -75,19 +76,24 @@ check_includes()
             mkdir includes
         fi
         mv *.hpp ./includes
+        echo "INC = -I includes">> Makefile
+        echo >> Makefile
+        echo "CPPFLAGS = -Wall -Wextra -Werror $(INC) -std=c++98" >> Makefile
+        echo >> Makefile
+    else
+        echo "CPPFLAGS = -Wall -Wextra -Werror -std=c++98" >> Makefile
+        echo >> Makefile
     fi
 }
 
 create_makefile()
 {
-    check_srcs
-    check_includes
     touch Makefile
+    check_srcs
     echo "CC = g++" >> Makefile
     echo >> Makefile
+    check_includes
     echo "RM = rm -f" >> Makefile
-    echo >> Makefile
-    echo "CPPFLAGS = -Wall -Wextra -Werror -std=c++98" >> Makefile
     echo >> Makefile
     echo "NAME =" $NAME >> Makefile
     echo >> Makefile
@@ -98,15 +104,15 @@ create_makefile()
     echo -e '\t@$(CC) $(CPPFLAGS) -O3 -c $< -o $@' >> Makefile
     echo >> Makefile
     echo '$(NAME):' >> Makefile
-    echo -e "\t"@'$(CC)' '$(CPPFLAGS)' '$(SRC)' -o '$(NAME)' >> Makefile
-    echo -e '\techo -e '"'"$NAME 'Compiled!'"'" >> Makefile
+    echo -e "\t"@'$(CC)' '$(CPPFLAGS)' '$(SRCS)' -o '$(NAME)' >> Makefile
+    echo -e '\t@echo -e '"'"'\033[0;32m' $NAME 'Compiled!\033[0m'"'" >> Makefile
     echo >> Makefile
     echo clean: >> Makefile
     echo -e '\t@$(RM) $(OBJS_DIR)' >> Makefile
     echo >> Makefile
     echo fclean: clean >> Makefile
     echo -e '\t@$(RM) $(NAME)' >> Makefile
-    echo -e '\techo -e '"'"$NAME 'Removed!'"'" >> Makefile
+    echo -e '\t@echo -e '"'"'\033[0;31m' $NAME 'Removed!\033[0m'"'" >> Makefile
     echo >> Makefile
     echo re: >> Makefile
     echo -e '\t@make fclean' >> Makefile

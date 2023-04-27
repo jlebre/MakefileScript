@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DIR=PWD
+
+chmod u+x make_c.sh
+chmod u+x make_cpp.sh
