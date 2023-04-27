@@ -38,12 +38,16 @@ create_makefile()
     echo -e '\t@$(RM) $(NAME)' >> Makefile
     echo -e '\techo "'$NAME 'Removed!"' >> Makefile
     echo >> Makefile
+    echo re: >> Makefile
+    echo -e '\t@make fclean' >> Makefile
+    echo -e '\t@make' >> Makefile
+    echo >> Makefile
     echo a: >> Makefile
     echo -e "\t@make fclean" >> Makefile
     echo -e "\t@make" >> Makefile
     echo -e "\t@./$NAME" >> Makefile
     echo >> Makefile
-    echo .PHONY: all clean fclean a >> Makefile
+    echo .PHONY: all clean fclean re a >> Makefile
 }
 
 if [[ -e Makefile ]];
