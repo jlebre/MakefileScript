@@ -17,13 +17,37 @@ else
     NAME="$DIR";
 fi
 
+check_if_cpp_exists()
+{
+    for entry in "."/*
+    do
+        if [[ ${entry##*.} == "cpp" ]]
+        then
+            return 0 # CPP Exists
+        fi
+    done
+    return 1
+}
+
+check_if_hpp_exists()
+{
+    for entry in "."/*
+    do
+        if [[ ${entry##*.} == "hpp" ]]
+        then
+            return 0 # CPP Exists
+        fi
+    done
+    return 1
+}
+
 check_srcs()
 {
     if [[ ! -d "srcs" ]]
     then
         mkdir srcs
     fi
-    if [[ -e *.cpp ]]
+    if check_if_cpp_exists
     then
         mv *.cpp ./srcs
     fi
@@ -32,7 +56,6 @@ check_srcs()
     do
         echo -e '\t\t\t'${entry##*/}' \' >> Makefile
     done
-    # Add All files inside the folder
     echo >> Makefile
     echo 'SRCS_DIR = srcs' >> Makefile 
     echo >> Makefile
@@ -45,7 +68,7 @@ check_srcs()
 
 check_includes()
 {
-    if [[ -e *.hpp ]]
+    if check_if_hpp_exists
     then
         if [ ! -d "includes" ]
         then
